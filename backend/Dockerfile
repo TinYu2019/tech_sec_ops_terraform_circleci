@@ -1,15 +1,15 @@
 # use a Node 18 base image
 FROM node:18-slim
 
-# set up working directory to /backend inside the container
-WORKDIR /backend-app
+# set up working directory to /app inside the container
+WORKDIR /app
 
-# copy backend app files
-COPY . ./backend/
+# copy all files in the current directory(/backend) to the working directory(/app)
+COPY . .
 
 # BUILD THE APP
 # install dependencies
-RUN npm ci
+RUN npm ci 
 
 # build the backend app
 RUN npm run build
