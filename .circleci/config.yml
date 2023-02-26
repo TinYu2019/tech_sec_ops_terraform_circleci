@@ -30,11 +30,11 @@ jobs:
       - setup_remote_docker
       - docker/check
       - docker/build:
-          image: backend-repository
-          tag: backend-app
+          image: $PRIVATE_REPOSITORY
+          tag: backend-app-v1
       - docker/push:
-          image: backend-repository
-          tag: backend-app
+          image: $PRIVATE_REPOSITORY
+          tag: backend-app-v1
 
 # CD: pull the backend image from dockerhub, run it in a new container on remote server(aws ec2 instance)
     # let circleci connect to aws ec2 instance, via access key / rsa key
