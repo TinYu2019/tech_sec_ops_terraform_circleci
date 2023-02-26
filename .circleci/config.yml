@@ -16,9 +16,9 @@ orbs:
     # push the image to dockerhub
 jobs: 
   build:
-    executer: node/default
+    executor: node/default
     docker:
-      image: cimg/node:lts
+      - image: cimg/node:lts
     working_directory: ~/project/backend
     steps:
       - checkout:
@@ -27,7 +27,7 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run test:e2e
-      - start_remote_docker
+      - setup_remote_docker
       - docker/check
       - docker/build:
           image: backend-repository
@@ -36,7 +36,7 @@ jobs:
           image: backend-repository
           tag: backend-app
 
-  # CD: pull the backend image from dockerhub, run it in a new container on remote server(aws ec2 instance)
+# CD: pull the backend image from dockerhub, run it in a new container on remote server(aws ec2 instance)
     # let circleci connect to aws ec2 instance, via access key / rsa key
     # ec2 instance connect to dockerhub
     # ec2 stop and remove backend project container if exists
@@ -45,3 +45,7 @@ jobs:
 
 # workflow
   # backend jobs: build > deploy (only when main branch has changes)
+workflows:
+  backend:
+    jobs:
+      - build
