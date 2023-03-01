@@ -24,9 +24,15 @@ jobs:
       - checkout:
           path: ~/project
       - node/install-packages
-      - run: npm run lint
-      - run: npm run test
-      - run: npm run test:e2e
+      - run: 
+          name: Run ESlint
+          command: npm run lint
+      - run: 
+          name: Run unit test
+          command: npm run test
+      - run: 
+          name: Run E2E test
+          command: npm run test:e2e
       - setup_remote_docker
       - docker/check
       - docker/build:
