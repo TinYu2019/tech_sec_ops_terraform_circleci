@@ -2,7 +2,7 @@ provider "aws" {
     region = "us-east-2"
 }
 
-resource "aws_launch_configuration" "ec2_frontend" {
+resource "aws_launch_configuration" "terraform_exercise" {
     image_id = "ami-0fb653ca2d3203ac1"
     instance_type = "t2.micro"
     security_groups = [aws_security_group.instance.id]
@@ -31,7 +31,7 @@ resource "aws_security_group" "instance" {
 }
 
 resource "aws_autoscaling_group" "example" {
-    launch_configuration = aws_launch_configuration.ec2_frontend.name
+    launch_configuration = aws_launch_configuration.terraform_exercise.name
     vpc_zone_identifier = data.aws_subnets.default.ids
     
     target_group_arns = [aws_lb_target_group.asg.arn]
